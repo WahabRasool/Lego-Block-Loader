@@ -1,0 +1,106 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+  }
+  
+  body {
+    background: #242424;
+    color: #fff;
+    overflow: hidden;
+  }
+  
+  .loader {
+    position: fixed;
+    display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    --brick-height: 120px;
+    --brick-width: 65px;
+  }
+  .loader .brick {
+    width: var(--brick-width);
+    height: var(--brick-height);
+    --brick-bg: #AB3638;
+    --brick-cr-bg: #892B2D;
+    background: var(--brick-bg);
+    margin: 0 0;
+    position: relative;
+    z-index: 2;
+  }
+  .loader .brick:after, .loader .brick:before {
+    content: "";
+    position: absolute;
+    right: -20px;
+    top: 15px;
+    width: 20px;
+    height: 35px;
+    z-index: -1;
+    background: var(--brick-bg);
+    box-shadow: 10px -20px 0px 0px var(--brick-cr-bg) inset;
+  }
+  .loader .brick:before {
+    top: auto;
+    bottom: 15px;
+  }
+  .loader .brick:nth-child(1) {
+    --brick-bg: hsl(0deg 46% 38.12%);
+  }
+  .loader .brick:nth-child(2) {
+    --brick-bg: hsl(0deg 48% 40.12%);
+  }
+  .loader .brick:nth-child(3) {
+    --brick-bg: hsl(0deg 50% 42.12%);
+  }
+  .loader .brick:nth-child(4) {
+    --brick-bg: hsl(0deg 52% 44.12%);
+  }
+  .loader .brick:not(:last-child) {
+    animation: slide 1s ease-in-out infinite;
+  }
+  .loader .brick:last-child {
+    animation: drop 1s ease-in-out infinite;
+  }
+  
+  @keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    20%, 100% {
+      transform: translateX(calc(var( --brick-width) * 1));
+    }
+  }
+  @keyframes drop {
+    0% {
+      transform: translate(0, 0);
+      opacity: 1;
+      z-index: 3;
+    }
+    20% {
+      transform: translate(calc(var(--brick-width) * 1.5), 0);
+      opacity: 1;
+      z-index: 3;
+    }
+    40% {
+      transform: translate(calc(var(--brick-width) * 1.5), 100vh);
+      opacity: 1;
+      z-index: 3;
+    }
+    60% {
+      transform: translate(-100vw, 50vh);
+      opacity: 0;
+      z-index: 1;
+      --brick-bg: hsl(0deg 46% 38.12%);
+    }
+    80% {
+      transform: translate(-100vw, 0);
+      opacity: 1;
+      z-index: 1;
+      --brick-bg: hsl(0deg 46% 38.12%);
+    }
+    100% {
+      transform: translate(calc(var(--brick-width) * -4), 0);
+      opacity: 1;
+      z-index: 1;
+      --brick-bg: hsl(0deg 46% 38.12%);
+    }
+  }
